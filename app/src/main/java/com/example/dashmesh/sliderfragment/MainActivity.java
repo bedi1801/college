@@ -18,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
@@ -178,14 +181,46 @@ public class MainActivity extends AppCompatActivity {
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getActivity(), Info.class);
-                        intent.putExtra(Info.TAB_INDEX_KEY, 3);
-                        startActivity(intent);
+                       // Intent intent = new Intent(getActivity(), Info.class);
+                       // intent.putExtra(Info.TAB_INDEX_KEY, 3);
+                       // startActivity(intent);
 
                     }
                 });
                 TextView textView = (TextView) rootView.findViewById(R.id.section_label);
                 textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+
+                final Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                        R.array.spinner_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+// Apply the adapter to the spi
+                spinner.setAdapter(adapter);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int position, long id) {
+                        if (parent.getItemAtPosition(position).toString()
+                                .equals("Btech")) {
+                            Intent i = new Intent(getActivity(), Btech_list.class);
+                            startActivity(i);
+                            spinner.setSelection(0);
+                           // getActivity().finish();
+                        }
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
                 return rootView;
             }
 
