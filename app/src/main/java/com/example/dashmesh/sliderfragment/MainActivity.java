@@ -1,6 +1,5 @@
 package com.example.dashmesh.sliderfragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,24 +13,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -200,54 +192,15 @@ public class MainActivity extends AppCompatActivity {
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
                 View rootView = inflater.inflate(R.layout.fragment_main2, container, false);
 
+                return rootView;
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                View rootView = inflater.inflate(R.layout.fragment_main3, container, false);
 
-                final ListView listview = (ListView) rootView.findViewById(R.id.list);
-                String[] values = new String[]{"Android", "iPhone", "WindowsMobile",
-                        "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
-                        "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
-                        "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
-                        "Android", "iPhone", "WindowsMobile"};
-
-                final ArrayList<String> list = new ArrayList<String>();
-                for (int i = 0; i < values.length; ++i) {
-                    list.add(values[i]);
-                    Log.i("TAG","values");
-                }
-                Log.e("TAG","list");
-                final StableArrayAdapter adapter = new StableArrayAdapter(this.getActivity(),android.R.layout.simple_list_item_1,list);
-                listview.setAdapter(adapter);
                 return rootView;
             }
             return null;
         }
-
-        private class StableArrayAdapter extends ArrayAdapter<String> {
-
-            HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
-
-            public StableArrayAdapter(Context context, int textViewResourceId,
-                                      List<String> objects) {
-                super(context, textViewResourceId, objects);
-                for (int i = 0; i < objects.size(); ++i) {
-                    Log.i("TAG", "StableArrayAdapter: map[i]");
-                    mIdMap.put(objects.get(i), i);
-                }
-            }
-
-            @Override
-            public long getItemId(int position) {
-                String item = getItem(position);
-                return mIdMap.get(item);
-            }
-
-            @Override
-            public boolean hasStableIds() {
-                return true;
-            }
-
-        }
-
-
     }
 
     /**
